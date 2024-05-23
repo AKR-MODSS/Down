@@ -6,98 +6,72 @@
     <title>AKR MODS</title>
     <style>
         body {
-            background-color: #121212;
-            color: #FFFFFF;
+            background-color: #000;
+            color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
-            padding: 20px;
         }
         h1 {
-            color: #FFFFFF;
-            margin-bottom: 30px;
             font-size: 3em;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            position: absolute;
-            top: 20px;
-            width: 100%;
+            margin-top: 40px;
             text-align: center;
-        }
-        .content-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: 400px;
-            margin-top: 100px; /* To avoid overlapping with the title */
         }
         .download-button {
-            background-color: #FF0000;
-            color: #FFFFFF;
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
             text-decoration: none;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s, transform 0.3s;
-            text-align: center;
-            width: 100%;
-            position: relative;
-        }
-        .download-button:hover {
-            background-color: #CC0000;
-            transform: translateY(-5px);
-        }
-        .countdown {
             font-size: 1.5em;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .download-button:disabled {
+            background-color: gray;
+            cursor: not-allowed;
+        }
+        .download-button:hover:not(:disabled) {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+        .ad-container {
             margin-top: 20px;
         }
     </style>
     <script>
-        function startCountdown(event) {
-            event.preventDefault();
-            const button = event.currentTarget;
-            const originalText = button.textContent;
-            
-            let countdown = 5;
-            button.textContent = `Download (${countdown})`;
+        function startCountdown() {
+            const button = document.getElementById('download-button');
+            let timeLeft = 5;
+
             button.disabled = true;
-            
-            const interval = setInterval(() => {
-                countdown -= 1;
-                button.textContent = `Download (${countdown})`;
-                if (countdown === 0) {
-                    clearInterval(interval);
-                    window.location.href = button.getAttribute('href');
-                    button.textContent = originalText;
+            button.style.backgroundColor = 'gray';
+
+            const countdownInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    button.textContent = `Download (${timeLeft}s)`;
+                    timeLeft--;
+                } else {
+                    clearInterval(countdownInterval);
+                    button.textContent = 'Download';
+                    button.style.backgroundColor = '#28a745';
                     button.disabled = false;
+                    window.location.href = 'your-download-link-here';
                 }
             }, 1000);
-            
-            button.removeEventListener('click', startCountdown);
-        }
-        
-        window.onload = function() {
-            const button = document.querySelector('.download-button');
-            button.addEventListener('click', startCountdown);
         }
     </script>
 </head>
 <body>
-
     <h1>AKR MODS</h1>
-
-    <div class="content-container">
-        <a href="https://www.akrmodex.tech/2023/09/akr-whatsapp-v1058.html" class="download-button">Download</a>
-
+    <button id="download-button" class="download-button" onclick="startCountdown()">Download</button>
+    <div class="ad-container">
         <script type="text/javascript" src="https://kvaaa.com/bnr.php?section=General&pub=294142&format=300x250&ga=a"></script>
         <noscript>
             <a href="https://yllix.com/publishers/294142" target="_blank">
@@ -105,6 +79,5 @@
             </a>
         </noscript>
     </div>
-
 </body>
 </html>
