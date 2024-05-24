@@ -3,81 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKR MODS</title>
+    <title>Centered Download Button with Countdown</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            background-color: #000;
-            color: #fff;
+            background-color: #cfd9df;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             height: 100vh;
             margin: 0;
-            font-family: 'Arial', sans-serif;
         }
-        h1 {
-            font-size: 3em;
-            margin-top: 40px;
+        .header {
+            width: 100%;
+            background-color: #3aa5e7;
+            padding: 20px 0;
             text-align: center;
         }
-        .download-button {
-            background-color: #28a745;
+        .title {
+            font-size: 24px;
+            font-weight: bold;
             color: white;
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 1.5em;
+        }
+        .download-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            width: 100%;
+        }
+        .download-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #e2ebf0;
+            background-color: #065485;
             border: none;
             border-radius: 5px;
-            margin-top: 20px;
+            text-decoration: none;
+            text-align: center;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
+            transition: background-color 0.3s, cursor 0.3s;
         }
-        .download-button:disabled {
-            background-color: gray;
+        .download-button.disabled {
+            background-color: #065485;
             cursor: not-allowed;
         }
-        .download-button:hover:not(:disabled) {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
-        .ad-container {
+        .footer {
             margin-top: 20px;
+            text-align: center;
+            color: #444;
         }
     </style>
-    <script>
-        function startCountdown() {
-            const button = document.getElementById('download-button');
-            let timeLeft = 5;
-
-            button.disabled = true;
-            button.style.backgroundColor = 'gray';
-
-            const countdownInterval = setInterval(() => {
-                if (timeLeft > 0) {
-                    button.textContent = `Download (${timeLeft}s)`;
-                    timeLeft--;
-                } else {
-                    clearInterval(countdownInterval);
-                    button.textContent = 'Download';
-                    button.style.backgroundColor = '#28a745';
-                    button.disabled = false;
-                    window.location.href = 'https://www.akrmodex.tech/2023/09/akr-whatsapp-v1058.html';
-                }
-            }, 1000);
-        }
-    </script>
 </head>
 <body>
-    <h1>AKR MODS</h1>
-    <button id="download-button" class="download-button" onclick="startCountdown()">Download</button>
-    <div class="ad-container">
-        <script type="text/javascript" src="https://kvaaa.com/bnr.php?section=General&pub=294142&format=300x250&ga=a"></script>
-        <noscript>
-            <a href="https://yllix.com/publishers/294142" target="_blank">
-                <img src="//ylx-aff.advertica-cdn.com/pub/300x250.png" style="border:none;margin:0;padding:0;vertical-align:baseline;" alt="ylliX - Online Advertising Network" />
-            </a>
-        </noscript>
+    <div class="header">
+        <div class="title">A K R M O D S</div>
     </div>
+    <div class="download-container">
+        <button id="downloadBtn" class="download-button">Download</button>
+    </div>
+    <div class="footer">
+        &copy; 2024-2025 AKR MODS KARTHIK T 
+    </div>
+
+    <!-- Ads Code -->
+    <script type="text/javascript" src="https://kvaaa.com/slider.php?section=General&pub=294142&ga=a&side=random"></script>
+
+    <script>
+        const downloadButton = document.getElementById('downloadBtn');
+        const downloadLink = 'https://www.akrmodex.tech/2023/09/akr-whatsapp-v1058.html'; // Replace with your download link
+
+        downloadButton.addEventListener('click', function() {
+            if (downloadButton.disabled) return; // Prevent multiple clicks
+
+            downloadButton.disabled = true;
+            downloadButton.classList.add('disabled');
+            let countdown = 5;
+            downloadButton.textContent = `Wait ${countdown} seconds`;
+
+            const interval = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    downloadButton.textContent = `Wait ${countdown} seconds`;
+                } else {
+                    clearInterval(interval);
+                    downloadButton.textContent = 'Download';
+                    downloadButton.disabled = false;
+                    downloadButton.classList.remove('disabled');
+                    window.location.href = downloadLink;
+                }
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
